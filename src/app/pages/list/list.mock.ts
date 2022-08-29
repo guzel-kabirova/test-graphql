@@ -5,3 +5,5 @@ export const DATA = [
   {title: 'Hollywood', type: 'Tug', port: 'Fort Lauderdale'},
   {title: 'Of Course I Still Love You', type: 'Barge', port: 'Port Canaveral'},
 ];
+
+export const RADIOBUTTON_VALUES = ['Barge', 'Cargo', 'High Speed Craft', 'Tug'];

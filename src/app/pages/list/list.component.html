@@ -10,21 +10,18 @@
       ></app-list-item>
     </ul>
 
-    <app-pagination></app-pagination>
+    <app-pagination [totalPages]="32"></app-pagination>
   </div>
 
   <div class="filters">
     <h2 class="subtitle">Фильтры</h2>
     <form>
-      <app-input class="filters__input" label="Название"></app-input>
+      <app-input class="filters__input" label="Название" placeholder="Введите название"></app-input>
 
       <div>
         <h4 class="filters__caption">Тип</h4>
         <div class="filters__radiobutton">
-          <app-radiobutton name="type" label="Barge"></app-radiobutton>
-          <app-radiobutton name="type" label="Cargo"></app-radiobutton>
-          <app-radiobutton name="type" label="High Speed Craft"></app-radiobutton>
-          <app-radiobutton name="type" label="Tug"></app-radiobutton>
+          <app-radiobutton name="type" *ngFor="let type of types" [label]="type"></app-radiobutton>
         </div>
       </div>
     </form>
