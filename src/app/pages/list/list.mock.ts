@@ -7,3 +7,4 @@ export const DATA = [
 ];
 
 export const RADIOBUTTON_VALUES = ['Barge', 'Cargo', 'High Speed Craft', 'Tug'];
+export const SELECT_VALUES = ['Port Canaveral', 'Port of Los Angeles', 'Fort Lauderdale'];

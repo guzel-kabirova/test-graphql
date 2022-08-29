@@ -15,8 +15,10 @@
 
   <div class="filters">
     <h2 class="subtitle">Фильтры</h2>
-    <form>
-      <app-input class="filters__input" label="Название" placeholder="Введите название"></app-input>
+    <form class="filters__form">
+      <app-input label="Название" placeholder="Введите название"></app-input>
+
+      <app-select label="Порт" placeholder="Введите порт" [items]="ports"></app-select>
 
       <div>
         <h4 class="filters__caption">Тип</h4>

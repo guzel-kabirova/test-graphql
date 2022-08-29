@@ -6,7 +6,7 @@ import {ListItemModule} from '../../components/list-item/list-item.module';
 import {PaginationModule} from '../../components/pagination/pagination.module';
 import {InputModule} from '../../components/input/input.module';
 import {RadiobuttonModule} from '../../components/radiobutton/radiobutton.module';
-
+import {SelectModule} from '../../components/select/select.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +18,7 @@ import {RadiobuttonModule} from '../../components/radiobutton/radiobutton.module
     PaginationModule,
     InputModule,
     RadiobuttonModule,
+    SelectModule,
   ],
 })
 export class ListModule {

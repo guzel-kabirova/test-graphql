@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-select',
@@ -7,6 +7,20 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectComponent {
+  @Input() items: string[] = [];
+  @Input() label = '';
+  @Input() placeholder = '';
+
+  public isOpen = false;
+  private _selectedItems: string[] = [];
+
+  get selectedCount(): number {
+    return this._selectedItems.length;
+  }
 
   constructor() { }
+
+  onClick() {
+    this.isOpen = !this.isOpen;
+  }
 }

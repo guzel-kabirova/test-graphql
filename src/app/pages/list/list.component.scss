@@ -28,8 +28,9 @@
   background-color: var(--color-white);
   padding: 52px 32px;
 
-  &__input {
-    margin-bottom: 33px;
+  &__form {
+    @include flex(column);
+    gap: 33px;
   }
 
   &__caption {
