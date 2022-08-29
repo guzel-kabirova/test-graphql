@@ -1,0 +1,31 @@
+@import "mixins";
+
+.card {
+  padding: 48px 64px;
+  width: 50%;
+
+  &__back {
+    color: var(--color-main);
+    font: var(--font-text-small);
+    @include flex(row, $items: center);
+    gap: 5px;
+    margin-bottom: 22px;
+    cursor: pointer;
+  }
+
+  &__title {
+    margin-bottom: 53px;
+  }
+
+  &__description {
+    display: grid;
+    gap: 40px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &__info {
+    &:last-child {
+      grid-column: 1/-1;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+.field {
+  width: 100%;
+
+  &__input {
+    width: 100%;
+    border: none;
+    padding: 7px 0;
+    display: block;
+    border-bottom: 1px solid var(--color-input-default);
+    outline: none;
+    background: none;
+
+    &::placeholder {
+      color: transparent;
+    }
+
+    &:focus {
+      border-bottom: 1px solid var(--color-input-active);
+    }
+  }
+
+  &__label {
+    display: block;
+    font: var(--font-text);
+    color: var(--color-text-description);
+    transform: translateY(-28px);
+    transform-origin: 0 0;
+    transition: transform 0.3s;
+  }
+}
+
+.field__input:focus + .field__label,
+.field__input:not(:placeholder-shown) + .field__label {
+  transform: translateY(-40px) scale(0.8);
+}

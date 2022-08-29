@@ -1,0 +1,37 @@
+:root {
+  --font-fallback: -apple-system, 'BlinkMacSystemFont', system-ui, 'Roboto', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  --font-family: 'Roboto', var(--font-fallback);
+  //Fonts
+  --font-title: 500 28px var(--font-family);
+  --font-subtitle: 400 24px var(--font-family);
+  --font-main: 500 20px var(--font-family);
+  --font-text: 400 16px var(--font-family);
+  --font-pagination: 500 16px var(--font-family);
+  --font-caption: 700 16px var(--font-family);
+  --font-text-small: 400 14px var(--font-family);
+
+  //Colors
+  --color-black: #000;
+  --color-white: #fff;
+  --color-main: #2962FF;
+  --color-main-light: #347CFF;
+  --color-background: #FAFAFA;
+  --color-border: #A5A5A5;
+
+  //Colors-text
+  --color-text-main: var(--color-black);
+  --color-text-secondary: var(--color-main);
+  --color-text-description: rgba(0, 0, 0, 0.4);
+
+  //Colors-input
+  --color-input-default: rgba(0, 0, 0, 0.3);
+  --color-input-active: var(--color-main-light);
+  --color-input-choose-default: rgba(0, 0, 0, 0.54);
+
+  //Colors-pagination
+  --color-pagiation-default: #3C474C;
+  --color-pagiation-active: var(--color-main-light);
+
+  //Shadows
+  --shadow: 0px 3px 6px rgba(0, 0, 0, 0.23), 0px 3px 6px rgba(0, 0, 0, 0.16);
+}

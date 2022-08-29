@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="list">
+    <h1 class="list__title title">SpaceX Ships</h1>
+
+    <ul class="list__items">
+      <app-list-item *ngFor="let item of list"
+                     [title]="item.title"
+                     [type]="item.type"
+                     [port]="item.port"
+      ></app-list-item>
+    </ul>
+
+    <app-pagination></app-pagination>
+  </div>
+
+  <div class="filters">
+    <h2 class="subtitle">Фильтры</h2>
+    <form>
+      <app-input class="filters__input" label="Название"></app-input>
+
+      <div>
+        <h4 class="filters__caption">Тип</h4>
+        <div class="filters__radiobutton">
+          <app-radiobutton name="type" label="Barge"></app-radiobutton>
+          <app-radiobutton name="type" label="Cargo"></app-radiobutton>
+          <app-radiobutton name="type" label="High Speed Craft"></app-radiobutton>
+          <app-radiobutton name="type" label="Tug"></app-radiobutton>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

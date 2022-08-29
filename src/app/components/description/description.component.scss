@@ -1,0 +1,20 @@
+@import "mixins";
+
+.description {
+  font: var(--font-text);
+
+  &_row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 104px;
+  }
+
+  &_column {
+    @include flex(column);
+    gap: 22px;
+  }
+
+  &__text {
+    color: var(--color-main);
+  }
+}

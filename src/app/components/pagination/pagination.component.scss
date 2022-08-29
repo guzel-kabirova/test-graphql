@@ -1,0 +1,11 @@
+@import "mixins";
+
+.pagination {
+  margin-top: 52px;
+  @include flex(row);
+  gap: 18px;
+
+  &__page {
+    font: var(--font-pagination);
+  }
+}
