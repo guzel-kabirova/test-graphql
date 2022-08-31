@@ -1,4 +1,6 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+
+import {MediaFormat} from '../../../../__generated__/globalTypes';
 
 @Component({
   selector: 'app-radiobutton',
@@ -10,5 +12,13 @@ export class RadiobuttonComponent {
   @Input() label = '';
   @Input() name = '';
 
+  @Output() onRadioChanged = new EventEmitter<MediaFormat>();
+
   constructor() { }
+
+  radioChanged(event: Event) {
+    if ((event.target as HTMLInputElement).checked) {
+      this.onRadioChanged.emit(this.label as MediaFormat);
+    }
+  }
 }

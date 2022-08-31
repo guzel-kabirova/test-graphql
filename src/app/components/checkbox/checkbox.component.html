@@ -1,4 +1,4 @@
 <label class="field" [for]="label">
-  <input type="checkbox" [id]="label">
+  <input type="checkbox" [id]="label" [checked]="isChecked" (change)="onSelect($event)">
   {{label}}
 </label>

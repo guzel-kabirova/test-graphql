@@ -6,6 +6,8 @@ import {GetGenreCollection} from './__generated__/GetGenreCollection';
 import {GetMedia} from './__generated__/GetMedia';
 import {IPagination, ListItemModel} from './list.interface';
 import {DEFAULT_PAGINATION} from './list.const';
+import {IForm} from './list-filters/list-filters.component';
+import {selectTrulyObjectProperties} from '../../utils/selectTrulyObjectProperties';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +16,8 @@ export class ListService {
   private _pagination = new BehaviorSubject<IPagination>(DEFAULT_PAGINATION);
   public pagination$ = this._pagination.asObservable();
 
+  private _filters = new BehaviorSubject<Partial<IForm> | null>(null);
+
   private _mediaList = new BehaviorSubject<ListItemModel[]>([]);
   public mediaList$ = this._mediaList.asObservable();
 
@@ -21,14 +25,15 @@ export class ListService {
   public genres$ = this._genres.asObservable();
 
   private _genreCollection = gql`query GetGenreCollection{GenreCollection}`;
-  private _media = gql`query GetMedia($page: Int){
+
+  private _media = gql`query GetMediaFilter($page: Int, $name: String, $genres: [String], $format: MediaFormat){
     Page (page: $page, perPage: 10) {
       pageInfo {
         total
         currentPage
         lastPage
       }
-      media {
+      media(genre_in: $genres, format: $format, search: $name) {
         id
         title {
           romaji
@@ -51,6 +56,14 @@ export class ListService {
     return this._pagination.getValue();
   }
 
+  setFiltersToStore(filters: Partial<IForm>) {
+    this._filters.next(filters);
+  }
+
+  getFiltersFromStore(): Partial<IForm> | null {
+    return this._filters.getValue();
+  }
+
   setMediaListToStore(media: ListItemModel[]) {
     this._mediaList.next(media);
   }
@@ -67,8 +80,11 @@ export class ListService {
     return this._genres.getValue();
   }
 
-  getMedia(page: number): Observable<ListItemModel[]> {
-    return this._apollo.query<GetMedia>({query: this._media, variables: {page}}).pipe(
+  getMedia(page: number, filters?: Partial<IForm>): Observable<ListItemModel[]> {
+    return this._apollo.query<GetMedia>({
+      query: this._media,
+      variables: selectTrulyObjectProperties({...filters}),
+    }).pipe(
       map(data => {
         this.setPaginationToStore(data.data.Page?.pageInfo as IPagination);
         if (data.data.Page && data.data.Page.media) {

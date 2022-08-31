@@ -1,4 +1,6 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+
+import {ICheckboxValue} from '../checkbox/checkbox.component';
 
 @Component({
   selector: 'app-select',
@@ -11,16 +13,25 @@ export class SelectComponent {
   @Input() label = '';
   @Input() placeholder = '';
 
-  public isOpen = false;
-  private _selectedItems: string[] = [];
+  @Output() selectedValuesChanged = new EventEmitter<string[]>();
+
+  selectedValues: ICheckboxValue[] = [];
+  selectedValuesOutput: string[] = [];
 
   get selectedCount(): number {
-    return this._selectedItems.length;
+    return this.selectedValues.filter(el => el && el.isChecked).length;
   }
 
-  constructor() { }
+  public isOpen = false;
+
+  constructor() {
+  }
 
   onClick() {
     this.isOpen = !this.isOpen;
+
+    if (!this.isOpen) {
+      this.selectedValuesChanged.emit(this.selectedValues.filter(el => el && el.isChecked).map(el => el.label));
+    }
   }
 }

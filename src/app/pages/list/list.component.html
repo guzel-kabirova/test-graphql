@@ -16,6 +16,7 @@
   </div>
 
   <div class="filters">
-    <app-list-filters [formats]="formats" [genres]="(genres$ | async) ?? []"></app-list-filters>
+    <app-list-filters [formats]="formats" [genres]="(genres$ | async) ?? []" [defaultFilters]="defaultFilters"
+                      (onFormChanged)="filterMedia($event)"></app-list-filters>
   </div>
 </div>

@@ -1,14 +1,16 @@
 <div class="filters">
   <h2 class="subtitle">Фильтры</h2>
-  <form class="filters__form">
-    <app-input label="Название" placeholder="Введите название"></app-input>
+  <form class="filters__form" *ngIf="form" [formGroup]="form">
+    <app-input label="Название" placeholder="Введите название" formControlName="name"></app-input>
 
-    <app-select label="Жанры" placeholder="Введите жанр" [items]="genres"></app-select>
+    <app-select label="Жанры" placeholder="Введите жанр" [items]="genres"
+                (selectedValuesChanged)="updateSelectedValues($event)"></app-select>
 
     <div>
       <h4 class="filters__caption">Формат</h4>
       <div class="filters__radiobutton">
-        <app-radiobutton name="type" *ngFor="let format of formats" [label]="format"></app-radiobutton>
+        <app-radiobutton name="type" *ngFor="let format of formats" [label]="format"
+                         (onRadioChanged)="updateRadioValues($event)"></app-radiobutton>
       </div>
     </div>
   </form>

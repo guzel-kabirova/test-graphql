@@ -1,2 +1,2 @@
-<input class="radiobutton" type="radio" [id]="label" [name]="name">
+<input class="radiobutton" type="radio" [id]="label" [name]="name" (change)="radioChanged($event)">
 <label [for]="label">{{label}}</label>
