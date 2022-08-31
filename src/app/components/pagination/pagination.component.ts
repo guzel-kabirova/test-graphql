@@ -24,6 +24,7 @@ export class PaginationComponent {
     return this._activePage;
   }
 
+  @Input()
   public set activePage(page: number) {
     this._activePage = page;
   }

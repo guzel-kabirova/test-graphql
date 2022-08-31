@@ -1,9 +1,11 @@
-<div class="field" (click)="onClick()">
-  <div>{{selectedCount ? selectedCount : placeholder}}</div>
-</div>
+<div class="select">
+  <div class="field" (click)="onClick()">
+    <div>{{selectedCount ? selectedCount : placeholder}}</div>
+  </div>
 
-<ul class="list" [class.list_hidden]="!isOpen">
-  <li class="list__item-wrapper" *ngFor="let item of items">
-    <app-checkbox class="list__item" [label]="item"></app-checkbox>
-  </li>
-</ul>
+  <ul class="list" [class.list_hidden]="!isOpen">
+    <li class="list__item-wrapper" *ngFor="let item of items">
+      <app-checkbox class="list__item" [label]="item"></app-checkbox>
+    </li>
+  </ul>
+</div>

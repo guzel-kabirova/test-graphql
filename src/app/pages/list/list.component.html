@@ -1,31 +1,21 @@
 <div class="container">
   <div class="list">
-    <h1 class="list__title title">SpaceX Ships</h1>
+    <div class="list__header">
+      <h1 class="list__title title">Аниме и манги</h1>
+      <div class="list__filter-icon">=</div>
+    </div>
 
     <ul class="list__items">
-      <app-list-item *ngFor="let item of list"
-                     [title]="item.title"
-                     [type]="item.type"
-                     [port]="item.port"
-      ></app-list-item>
+      <app-list-item *ngFor="let item of list$ | async"
+                     [item]="item">
+      </app-list-item>
     </ul>
 
-    <app-pagination [totalPages]="32"></app-pagination>
+    <app-pagination *ngIf="pagination$ | async as pagination" [totalPages]="pagination.lastPage"
+                    [activePage]="pagination.currentPage" (paginationChanged)="changePage($event)"></app-pagination>
   </div>
 
   <div class="filters">
-    <h2 class="subtitle">Фильтры</h2>
-    <form class="filters__form">
-      <app-input label="Название" placeholder="Введите название"></app-input>
-
-      <app-select label="Порт" placeholder="Введите порт" [items]="ports"></app-select>
-
-      <div>
-        <h4 class="filters__caption">Тип</h4>
-        <div class="filters__radiobutton">
-          <app-radiobutton name="type" *ngFor="let type of types" [label]="type"></app-radiobutton>
-        </div>
-      </div>
-    </form>
+    <app-list-filters [formats]="formats" [genres]="(genres$ | async) ?? []"></app-list-filters>
   </div>
 </div>

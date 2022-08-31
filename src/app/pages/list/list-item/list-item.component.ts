@@ -1,5 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
+import {ListItemModel} from '../list.interface';
+
 @Component({
   selector: 'app-list-item',
   templateUrl: './list-item.component.html',
@@ -7,9 +9,7 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListItemComponent {
-  @Input() title = '';
-  @Input() type = '';
-  @Input() port = '';
+  @Input() item!: ListItemModel;
 
   constructor() { }
 }

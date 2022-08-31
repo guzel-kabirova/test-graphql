@@ -4,6 +4,14 @@
   padding: 48px 64px;
   width: 50%;
 
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    padding: 32px;
+  }
+
   &__back {
     color: var(--color-main);
     font: var(--font-text-small);
@@ -21,6 +29,10 @@
     display: grid;
     gap: 40px;
     grid-template-columns: repeat(2, 1fr);
+
+    @media (max-width: 768px) {
+      @include flex(column);
+    }
   }
 
   &__info {

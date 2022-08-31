@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 
 import {ListItemComponent} from './list-item.component';
-import {DescriptionModule} from '../description/description.module';
+import {DescriptionModule} from '../../../components/description/description.module';
 
 
 @NgModule({

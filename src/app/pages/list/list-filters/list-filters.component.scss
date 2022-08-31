@@ -1,0 +1,18 @@
+@import "mixins";
+
+.filters {
+  &__form {
+    @include flex(column);
+    gap: 33px;
+  }
+
+  &__caption {
+    font: var(--font-caption);
+    margin-bottom: 21px;
+  }
+
+  &__radiobutton {
+    @include flex(column);
+    gap: 12px;
+  }
+}

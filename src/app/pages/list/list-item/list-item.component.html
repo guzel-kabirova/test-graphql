@@ -1,0 +1,20 @@
+<li class="item">
+  <div class="item__header" [routerLink]="['/list', item.id]">
+    <h3 class="item__title">{{item.title}}</h3>
+    <img src="../../../../assets/icons/forward.svg" alt="Вперед">
+  </div>
+
+  <div class="item__description">
+    <app-description
+      name="Формат"
+      [text]="item.format"
+    ></app-description>
+
+    <app-description
+      name="Жанры"
+      [text]="item.genres"
+    ></app-description>
+  </div>
+
+  <div class="filters"></div>
+</li>

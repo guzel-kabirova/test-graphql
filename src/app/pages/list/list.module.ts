@@ -2,11 +2,9 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {ListComponent} from './list.component';
-import {ListItemModule} from '../../components/list-item/list-item.module';
+import {ListItemModule} from './list-item/list-item.module';
 import {PaginationModule} from '../../components/pagination/pagination.module';
-import {InputModule} from '../../components/input/input.module';
-import {RadiobuttonModule} from '../../components/radiobutton/radiobutton.module';
-import {SelectModule} from '../../components/select/select.module';
+import {ListFiltersModule} from './list-filters/list-filters.module';
 
 @NgModule({
   declarations: [
@@ -16,9 +14,7 @@ import {SelectModule} from '../../components/select/select.module';
     CommonModule,
     ListItemModule,
     PaginationModule,
-    InputModule,
-    RadiobuttonModule,
-    SelectModule,
+    ListFiltersModule,
   ],
 })
 export class ListModule {

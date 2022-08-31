@@ -8,11 +8,24 @@
 
 .list {
   padding: 52px 64px;
-  flex-grow: 1;
   overflow-y: auto;
 
-  &__title {
+  @media (max-width: 768px) {
+    padding: 32px;
+  }
+
+  &__header {
+    @include flex(row, space-between, center);
     margin-bottom: 64px;
+  }
+
+  &__filter-icon {
+    display: none;
+    cursor: pointer;
+
+    @media (max-width: 1200px) {
+      display: block;
+    }
   }
 
   &__items {
@@ -22,25 +35,14 @@
 }
 
 .filters {
-  width: 393px;
+  min-width: 400px;
   height: 100vh;
   border-left: 1px solid var(--color-border);
   background-color: var(--color-white);
   padding: 52px 32px;
 
-  &__form {
-    @include flex(column);
-    gap: 33px;
-  }
-
-  &__caption {
-    font: var(--font-caption);
-    margin-bottom: 21px;
-  }
-
-  &__radiobutton {
-    @include flex(column);
-    gap: 12px;
+  @media (max-width: 1200px) {
+    display: none;
   }
 }
 

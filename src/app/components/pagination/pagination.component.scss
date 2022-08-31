@@ -5,11 +5,6 @@
   @include flex(row);
   gap: 18px;
 
-  &__prev, &__next, &__page, &__dots {
-    background: none;
-    border: none;
-  }
-
   &__page {
     font: var(--font-pagination);
 
