@@ -1,6 +1,16 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {tap} from 'rxjs';
+import {DOCUMENT} from '@angular/common';
 
 import {selectTrulyObjectProperties} from '../../../utils/selectTrulyObjectProperties';
 import {MediaFormat} from '../../../../../__generated__/globalTypes';
@@ -34,7 +44,11 @@ export class ListFiltersComponent implements OnInit {
 
   public form?: FormGroup;
 
-  constructor(private _fb: FormBuilder) { }
+  constructor(
+    @Inject(DOCUMENT) private _document: Document,
+    private _fb: FormBuilder,
+    private _cdr: ChangeDetectorRef,
+  ) { }
 
   ngOnInit(): void {
     this.createForm();

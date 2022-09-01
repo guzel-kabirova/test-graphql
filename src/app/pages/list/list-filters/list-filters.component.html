@@ -7,7 +7,7 @@
   <form class="filters__form" *ngIf="form" [formGroup]="form">
     <app-input label="Название" placeholder="Введите название" formControlName="name"></app-input>
 
-    <app-select #select label="Жанры" placeholder="Введите жанр" [items]="genres"
+    <app-select label="Жанры" placeholder="Введите жанр" [items]="genres"
                 [defaultSelectedValues]="form.get('genres')?.value"
                 (selectedValuesChanged)="updateSelectedValues($event)"></app-select>
 

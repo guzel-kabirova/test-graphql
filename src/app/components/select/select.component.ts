@@ -1,4 +1,16 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {fromEvent, tap} from 'rxjs';
+import {DOCUMENT} from '@angular/common';
 
 import {ICheckboxValue} from '../checkbox/checkbox.component';
 
@@ -17,6 +29,8 @@ export class SelectComponent implements OnInit {
   @Input() defaultSelectedValues: string[] = [];
   @Output() selectedValuesChanged = new EventEmitter<string[]>();
 
+  public isOpen = false;
+
   selectedValues: string[] = [];
 
   private _selectedCount = 0;
@@ -29,12 +43,23 @@ export class SelectComponent implements OnInit {
     return this.selectedValues.length;
   }
 
-  public isOpen = false;
-
-  constructor() {
+  constructor(
+    @Inject(DOCUMENT) private _document: Document,
+    private _elRef: ElementRef,
+    private _cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
+    fromEvent(this._document, 'click').pipe(
+      tap(event => {
+        if (this._elRef?.nativeElement.contains(event.target as Node)) {
+          return;
+        } else {
+          this.isOpen = false;
+          this._cdr.detectChanges();
+        }
+      }),
+    ).subscribe();
     this.selectedValues = this.defaultSelectedValues;
   }
 
