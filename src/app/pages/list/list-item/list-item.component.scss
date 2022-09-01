@@ -18,5 +18,10 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 200px;
     margin: 29px 0;
+
+    @media (max-width: 768px) {
+      @include flex(column);
+      gap: 19px;
+    }
   }
 }
