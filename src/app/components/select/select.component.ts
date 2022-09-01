@@ -9,29 +9,36 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import {fromEvent, tap} from 'rxjs';
+import {fromEvent, Subject, takeUntil, tap} from 'rxjs';
 import {DOCUMENT} from '@angular/common';
 
 import {ICheckboxValue} from '../checkbox/checkbox.component';
+import {DestroyService} from '../../services/destroy.service';
 
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DestroyService],
 })
 export class SelectComponent implements OnInit {
-  @Input() items: string[] = [];
+  @Input()
+  public items: string[] = [];
 
-  @Input() label = '';
-  @Input() placeholder = '';
+  @Input()
+  public label = '';
+  @Input()
+  public placeholder = '';
 
-  @Input() defaultSelectedValues: string[] = [];
-  @Output() selectedValuesChanged = new EventEmitter<string[]>();
+  @Input()
+  public defaultSelectedValues: string[] = [];
+  @Output()
+  public selectedValuesChanged = new EventEmitter<string[]>();
 
   public isOpen = false;
 
-  selectedValues: string[] = [];
+  private _selectedValues: string[] = [];
 
   private _selectedCount = 0;
 
@@ -40,16 +47,22 @@ export class SelectComponent implements OnInit {
   }
 
   get selectedCount(): number {
-    return this.selectedValues.length;
+    return this._selectedValues.length;
   }
 
   constructor(
     @Inject(DOCUMENT) private _document: Document,
+    @Inject(DestroyService) private _destroy$: Subject<void>,
     private _elRef: ElementRef,
     private _cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
+    this.subscribeOnClicks();
+    this._selectedValues = this.defaultSelectedValues;
+  }
+
+  private subscribeOnClicks() {
     fromEvent(this._document, 'click').pipe(
       tap(event => {
         if (this._elRef?.nativeElement.contains(event.target as Node)) {
@@ -57,26 +70,31 @@ export class SelectComponent implements OnInit {
         } else {
           this.isOpen = false;
           this._cdr.detectChanges();
+          this.emitData();
         }
       }),
+      takeUntil(this._destroy$),
     ).subscribe();
-    this.selectedValues = this.defaultSelectedValues;
   }
 
-  onClick() {
+  public onClick() {
     this.isOpen = !this.isOpen;
 
     if (!this.isOpen) {
-      this.selectedValuesChanged.emit(this.selectedValues);
+      this.emitData();
     }
   }
 
-  selectChanged(value: ICheckboxValue) {
+  private emitData() {
+    this.selectedValuesChanged.emit(this._selectedValues);
+  }
+
+  public selectChanged(value: ICheckboxValue) {
     if (value.isChecked) {
-      this.selectedValues.push(value.label);
+      this._selectedValues.push(value.label);
     } else {
-      this.selectedValues = this.selectedValues.filter(el => el !== value.label);
+      this._selectedValues = this._selectedValues.filter(el => el !== value.label);
     }
-    this.selectedCount = this.selectedValues.length;
+    this.selectedCount = this._selectedValues.length;
   }
 }

@@ -22,7 +22,7 @@ export class CardComponent implements OnInit {
     this._route.data.subscribe(data => this.card = data['card']);
   }
 
-  back() {
+  public back() {
     this._location.back();
   }
 }

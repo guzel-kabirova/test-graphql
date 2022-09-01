@@ -14,3 +14,8 @@ export const DEFAULT_PAGINATION: IPagination = {
   currentPage: DEFAULT_PAGE_NUMBER,
   lastPage: DEFAULT_PAGE_NUMBER,
 };
+
+export enum DisplayProperty {
+  Block = 'block',
+  None = 'none'
+}

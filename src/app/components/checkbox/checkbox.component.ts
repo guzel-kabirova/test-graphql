@@ -20,14 +20,12 @@ export interface ICheckboxValue {
   providers: [VALUE_ACCESSOR],
 })
 export class CheckboxComponent {
-  @Input() label = '';
+  @Input()
+  public label = '';
   @Input()
   public isChecked = false;
   @Output()
-  onCheckboxChange = new EventEmitter<ICheckboxValue>();
-
-
-  outputValue?: ICheckboxValue;
+  public onCheckboxChange = new EventEmitter<ICheckboxValue>();
 
   constructor() { }
 

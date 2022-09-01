@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 
 import {ListService} from './list.service';
-import {DEFAULT_PAGE_NUMBER, FORMAT_LIST} from './list.const';
+import {DEFAULT_PAGE_NUMBER, DisplayProperty, FORMAT_LIST} from './list.const';
 import {IForm} from './list-filters/list-filters.component';
 
 @Component({
@@ -19,7 +19,8 @@ export class ListComponent implements OnInit {
 
   public defaultFilters?: Partial<IForm> | null;
 
-  @ViewChild('filters') filters?: ElementRef;
+  @ViewChild('filters')
+  private _filters?: ElementRef;
 
   constructor(
     private _listService: ListService,
@@ -42,7 +43,7 @@ export class ListComponent implements OnInit {
     this._listService.getMedia(page, filters).subscribe();
   }
 
-  changePage(page: number) {
+  public changePage(page: number) {
     const filters = this._listService.getFiltersFromStore();
     if (!!filters) {
       this.getMedia(page, filters);
@@ -51,20 +52,20 @@ export class ListComponent implements OnInit {
     }
   }
 
-  filterMedia(filters: Partial<IForm>) {
+  public filterMedia(filters: Partial<IForm>) {
     this._listService.setFiltersToStore(filters);
     this.getMedia(DEFAULT_PAGE_NUMBER, filters);
   }
 
-  changeFiltersDisplay(value: 'block' | 'none') {
-    this._renderer.setStyle(this.filters?.nativeElement, 'display', value);
+  private changeFiltersDisplay(value: DisplayProperty) {
+    this._renderer.setStyle(this._filters?.nativeElement, 'display', value);
   }
 
-  openFilters() {
-    this.changeFiltersDisplay('block');
+  public openFilters() {
+    this.changeFiltersDisplay(DisplayProperty.Block);
   }
 
-  closeFilters() {
-    this.changeFiltersDisplay('none');
+  public closeFilters() {
+    this.changeFiltersDisplay(DisplayProperty.None);
   }
 }

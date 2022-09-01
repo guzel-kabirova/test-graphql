@@ -7,9 +7,12 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DescriptionComponent {
-  @Input() isRow = true;
-  @Input() name = '';
-  @Input() text = '';
+  @Input()
+  public isRow = true;
+  @Input()
+  public name = '';
+  @Input()
+  public text = '';
 
   constructor() { }
 }

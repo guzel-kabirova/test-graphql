@@ -9,11 +9,12 @@ import {
   Output,
 } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {tap} from 'rxjs';
+import {Subject, takeUntil, tap} from 'rxjs';
 import {DOCUMENT} from '@angular/common';
 
 import {selectTrulyObjectProperties} from '../../../utils/selectTrulyObjectProperties';
 import {MediaFormat} from '../../../../../__generated__/globalTypes';
+import {DestroyService} from '../../../services/destroy.service';
 
 export interface IForm {
   name: string;
@@ -26,6 +27,7 @@ export interface IForm {
   templateUrl: './list-filters.component.html',
   styleUrls: ['./list-filters.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DestroyService],
 })
 export class ListFiltersComponent implements OnInit {
   @Input()
@@ -38,14 +40,15 @@ export class ListFiltersComponent implements OnInit {
   public defaultFilters?: Partial<IForm> | null;
 
   @Output()
-  onFormChanged = new EventEmitter<Partial<IForm>>();
+  public onFormChanged = new EventEmitter<Partial<IForm>>();
   @Output()
-  onFiltersClose = new EventEmitter<void>();
+  public onFiltersClose = new EventEmitter<void>();
 
   public form?: FormGroup;
 
   constructor(
     @Inject(DOCUMENT) private _document: Document,
+    @Inject(DestroyService) private _destroy$: Subject<void>,
     private _fb: FormBuilder,
     private _cdr: ChangeDetectorRef,
   ) { }
@@ -55,7 +58,7 @@ export class ListFiltersComponent implements OnInit {
     this.subscribeOnFormChanged();
   }
 
-  createForm() {
+  private createForm() {
     this.form = this._fb.group({
       name: [this.defaultFilters?.name ?? ''],
       genres: [this.defaultFilters?.genres ?? []],
@@ -63,21 +66,22 @@ export class ListFiltersComponent implements OnInit {
     });
   }
 
-  updateSelectedValues(genres: string[]) {
+  public updateSelectedValues(genres: string[]) {
     this.form?.patchValue({genres});
   }
 
-  updateRadioValues(format: string) {
+  public updateRadioValues(format: string) {
     this.form?.patchValue({format});
   }
 
-  subscribeOnFormChanged() {
+  private subscribeOnFormChanged() {
     this.form?.valueChanges.pipe(
       tap(() => this.onFormChanged.emit(selectTrulyObjectProperties(this.form?.value))),
+      takeUntil(this._destroy$),
     ).subscribe();
   }
 
-  closeFilters() {
+  public closeFilters() {
     this.onFiltersClose.emit();
   }
 }

@@ -48,39 +48,39 @@ export class ListService {
 
   constructor(private _apollo: Apollo) { }
 
-  setPaginationToStore(pagination: IPagination) {
+  private setPaginationToStore(pagination: IPagination) {
     this._pagination.next(pagination);
   }
 
-  getPaginationFromStore(): IPagination {
+  public getPaginationFromStore(): IPagination {
     return this._pagination.getValue();
   }
 
-  setFiltersToStore(filters: Partial<IForm>) {
+  public setFiltersToStore(filters: Partial<IForm>) {
     this._filters.next(filters);
   }
 
-  getFiltersFromStore(): Partial<IForm> | null {
+  public getFiltersFromStore(): Partial<IForm> | null {
     return this._filters.getValue();
   }
 
-  setMediaListToStore(media: ListItemModel[]) {
+  private setMediaListToStore(media: ListItemModel[]) {
     this._mediaList.next(media);
   }
 
-  getMediaListFromStore(): ListItemModel[] {
+  public getMediaListFromStore(): ListItemModel[] {
     return this._mediaList.getValue();
   }
 
-  setGenresToStore(genres: string[]) {
+  private setGenresToStore(genres: string[]) {
     this._genres.next(genres);
   }
 
-  getGenresFromStore(): string[] {
+  public getGenresFromStore(): string[] {
     return this._genres.getValue();
   }
 
-  getMedia(page: number, filters?: Partial<IForm>): Observable<ListItemModel[]> {
+  public getMedia(page: number, filters?: Partial<IForm>): Observable<ListItemModel[]> {
     return this._apollo.query<GetMedia>({
       query: this._media,
       variables: selectTrulyObjectProperties({...filters, page}),
@@ -96,7 +96,7 @@ export class ListService {
     );
   }
 
-  getGenreCollection(): Observable<string[]> {
+  public getGenreCollection(): Observable<string[]> {
     return this._apollo.query<GetGenreCollection>({query: this._genreCollection}).pipe(
       map(data => {
         const genres = data.data.GenreCollection;

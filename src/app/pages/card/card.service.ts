@@ -26,7 +26,7 @@ export class CardService {
 
   constructor(private _apollo: Apollo) { }
 
-  getCard(id: number): Observable<CardModel | null> {
+  public getCard(id: number): Observable<CardModel | null> {
     return this._apollo.query<GetCard>({query: this._card, variables: {id}}).pipe(
       map(data => {
           const item = data.data.Media;

@@ -15,8 +15,10 @@ const VALUE_ACCESSOR: Provider = {
   providers: [VALUE_ACCESSOR],
 })
 export class InputComponent implements ControlValueAccessor {
-  @Input() label = '';
-  @Input() placeholder = '';
+  @Input()
+  public label = '';
+  @Input()
+  public placeholder = '';
 
   public value = '';
 
@@ -25,7 +27,7 @@ export class InputComponent implements ControlValueAccessor {
 
   constructor() { }
 
-  changeInputValue(event: Event) {
+  public changeInputValue(event: Event) {
     this.onChange((event.target as HTMLInputElement).value);
   }
 
