@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, forwardRef, Input, Provider} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output, Provider} from '@angular/core';
+import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
 const VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -19,14 +19,15 @@ export interface ICheckboxValue {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [VALUE_ACCESSOR],
 })
-export class CheckboxComponent implements ControlValueAccessor {
+export class CheckboxComponent {
   @Input() label = '';
+  @Input()
   public isChecked = false;
+  @Output()
+  onCheckboxChange = new EventEmitter<ICheckboxValue>();
+
 
   outputValue?: ICheckboxValue;
-
-  onChange!: (value: ICheckboxValue) => void;
-  onTouch!: () => void;
 
   constructor() { }
 
@@ -35,18 +36,7 @@ export class CheckboxComponent implements ControlValueAccessor {
       isChecked: (event.target as HTMLInputElement).checked,
       label: this.label,
     };
-    this.onChange(output);
-  }
 
-  registerOnChange(fn: (value: ICheckboxValue) => void): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: () => void): void {
-    this.onTouch = fn;
-  }
-
-  writeValue(value: boolean): void {
-    this.isChecked = value;
+    this.onCheckboxChange.emit(output);
   }
 }

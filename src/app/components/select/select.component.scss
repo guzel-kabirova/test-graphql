@@ -9,6 +9,30 @@
   border-bottom: 1px solid var(--color-input-default);
   font: var(--font-text);
   color: var(--color-text-description);
+
+  &_focus {
+    border-bottom: 1px solid var(--color-input-active);
+  }
+
+  &__label {
+    transform: translateY(100%);
+    transform-origin: 0 0;
+    transition: transform 0.3s;
+
+    &_up {
+      transform: translateY(40%) scale(0.8);
+    }
+  }
+
+  &__value {
+    &_hidden {
+      opacity: 0;
+    }
+
+    &_entered {
+      color: var(--color-text-main);
+    }
+  }
 }
 
 .list {

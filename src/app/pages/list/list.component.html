@@ -1,18 +1,20 @@
 <div class="container">
-  <div class="list">
+  <div class="list" *ngIf="list$ | async as list">
     <div class="list__header">
       <h1 class="list__title title">Аниме и манги</h1>
       <div class="list__filter-icon">=</div>
     </div>
 
-    <ul class="list__items">
-      <app-list-item *ngFor="let item of list$ | async"
-                     [item]="item">
-      </app-list-item>
-    </ul>
+    <ng-container *ngIf="list.length; else noData">
+      <ul class="list__items">
+        <app-list-item *ngFor="let item of list"
+                       [item]="item">
+        </app-list-item>
+      </ul>
 
-    <app-pagination *ngIf="pagination$ | async as pagination" [totalPages]="pagination.lastPage"
-                    [activePage]="pagination.currentPage" (paginationChanged)="changePage($event)"></app-pagination>
+      <app-pagination *ngIf="pagination$ | async as pagination" [totalPages]="pagination.lastPage"
+                      [activePage]="pagination.currentPage" (paginationChanged)="changePage($event)"></app-pagination>
+    </ng-container>
   </div>
 
   <div class="filters">
@@ -20,3 +22,5 @@
                       (onFormChanged)="filterMedia($event)"></app-list-filters>
   </div>
 </div>
+
+<ng-template #noData>Ничего не найдено</ng-template>

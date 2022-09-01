@@ -4,12 +4,14 @@
     <app-input label="Название" placeholder="Введите название" formControlName="name"></app-input>
 
     <app-select label="Жанры" placeholder="Введите жанр" [items]="genres"
+                [defaultSelectedValues]="form.get('genres')?.value"
                 (selectedValuesChanged)="updateSelectedValues($event)"></app-select>
 
     <div>
       <h4 class="filters__caption">Формат</h4>
       <div class="filters__radiobutton">
         <app-radiobutton name="type" *ngFor="let format of formats" [label]="format"
+                         [isChecked]="form.get('format')?.value === format"
                          (onRadioChanged)="updateRadioValues($event)"></app-radiobutton>
       </div>
     </div>

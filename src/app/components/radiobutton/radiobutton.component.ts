@@ -11,6 +11,7 @@ import {MediaFormat} from '../../../../__generated__/globalTypes';
 export class RadiobuttonComponent {
   @Input() label = '';
   @Input() name = '';
+  @Input() isChecked = false;
 
   @Output() onRadioChanged = new EventEmitter<MediaFormat>();
 

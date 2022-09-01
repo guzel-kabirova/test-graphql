@@ -83,7 +83,7 @@ export class ListService {
   getMedia(page: number, filters?: Partial<IForm>): Observable<ListItemModel[]> {
     return this._apollo.query<GetMedia>({
       query: this._media,
-      variables: selectTrulyObjectProperties({...filters}),
+      variables: selectTrulyObjectProperties({...filters, page}),
     }).pipe(
       map(data => {
         this.setPaginationToStore(data.data.Page?.pageInfo as IPagination);
