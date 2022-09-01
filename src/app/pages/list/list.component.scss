@@ -8,6 +8,7 @@
 
 .list {
   padding: 52px 64px;
+  flex-grow: 1;
   overflow-y: auto;
 
   @media (max-width: 768px) {
@@ -22,6 +23,10 @@
   &__filter-icon {
     display: none;
     cursor: pointer;
+
+    &:hover {
+      @extend %filter-hover;
+    }
 
     @media (max-width: 1200px) {
       display: block;
@@ -42,7 +47,12 @@
   padding: 52px 32px;
 
   @media (max-width: 1200px) {
+    min-width: 200px;
     display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
   }
 }
 

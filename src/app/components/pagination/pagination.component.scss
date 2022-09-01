@@ -4,10 +4,15 @@
   margin-top: 52px;
   @include flex(row);
   gap: 18px;
+  font: var(--font-pagination);
+
+  &__prev, &__next, &__page {
+    &:not(:disabled):hover {
+      @extend %filter-hover;
+    }
+  }
 
   &__page {
-    font: var(--font-pagination);
-
     &_active {
       font: var(--font-caption);
       color: var(--color-pagiation-active);

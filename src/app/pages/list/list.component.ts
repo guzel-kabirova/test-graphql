@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 
 import {ListService} from './list.service';
 import {DEFAULT_PAGE_NUMBER, FORMAT_LIST} from './list.const';
@@ -19,7 +19,12 @@ export class ListComponent implements OnInit {
 
   public defaultFilters?: Partial<IForm> | null;
 
-  constructor(private _listService: ListService) { }
+  @ViewChild('filters') filters?: ElementRef;
+
+  constructor(
+    private _listService: ListService,
+    private _renderer: Renderer2,
+  ) { }
 
   ngOnInit(): void {
     if (!this._listService.getMediaListFromStore().length) {
@@ -49,5 +54,17 @@ export class ListComponent implements OnInit {
   filterMedia(filters: Partial<IForm>) {
     this._listService.setFiltersToStore(filters);
     this.getMedia(DEFAULT_PAGE_NUMBER, filters);
+  }
+
+  changeFiltersDisplay(value: 'block' | 'none') {
+    this._renderer.setStyle(this.filters?.nativeElement, 'display', value);
+  }
+
+  openFilters() {
+    this.changeFiltersDisplay('block');
+  }
+
+  closeFilters() {
+    this.changeFiltersDisplay('none');
   }
 }

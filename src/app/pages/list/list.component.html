@@ -2,7 +2,7 @@
   <div class="list" *ngIf="list$ | async as list">
     <div class="list__header">
       <h1 class="list__title title">Аниме и манги</h1>
-      <div class="list__filter-icon">=</div>
+      <img class="list__filter-icon" src="assets/icons/filter.svg" alt="Фильтры" (click)="openFilters()"/>
     </div>
 
     <ng-container *ngIf="list.length; else noData">
@@ -17,8 +17,9 @@
     </ng-container>
   </div>
 
-  <div class="filters">
+  <div class="filters" #filters>
     <app-list-filters [formats]="formats" [genres]="(genres$ | async) ?? []" [defaultFilters]="defaultFilters"
+                      (onFiltersClose)="closeFilters()"
                       (onFormChanged)="filterMedia($event)"></app-list-filters>
   </div>
 </div>

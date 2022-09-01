@@ -5,3 +5,7 @@
   align-items: $items;
   flex-wrap: $wrap;
 }
+
+%filter-hover {
+  filter: invert(42%) sepia(32%) saturate(7488%) hue-rotate(210deg) brightness(105%) contrast(101%)
+}

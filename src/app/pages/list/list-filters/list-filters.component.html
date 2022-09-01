@@ -1,9 +1,13 @@
 <div class="filters">
-  <h2 class="subtitle">Фильтры</h2>
+  <div class="filters__header">
+    <h2 class="subtitle">Фильтры</h2>
+    <img class="filters__exit-icon" src="assets/icons/exit.svg" alt="Закрыть фильтры" (click)="closeFilters()">
+  </div>
+
   <form class="filters__form" *ngIf="form" [formGroup]="form">
     <app-input label="Название" placeholder="Введите название" formControlName="name"></app-input>
 
-    <app-select label="Жанры" placeholder="Введите жанр" [items]="genres"
+    <app-select #select label="Жанры" placeholder="Введите жанр" [items]="genres"
                 [defaultSelectedValues]="form.get('genres')?.value"
                 (selectedValuesChanged)="updateSelectedValues($event)"></app-select>
 

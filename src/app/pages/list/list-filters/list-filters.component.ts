@@ -29,6 +29,8 @@ export class ListFiltersComponent implements OnInit {
 
   @Output()
   onFormChanged = new EventEmitter<Partial<IForm>>();
+  @Output()
+  onFiltersClose = new EventEmitter<void>();
 
   public form?: FormGroup;
 
@@ -59,5 +61,9 @@ export class ListFiltersComponent implements OnInit {
     this.form?.valueChanges.pipe(
       tap(() => this.onFormChanged.emit(selectTrulyObjectProperties(this.form?.value))),
     ).subscribe();
+  }
+
+  closeFilters() {
+    this.onFiltersClose.emit();
   }
 }
